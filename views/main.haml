@@ -1,0 +1,29 @@
+%html
+  %head
+    %script{src: '/js/jquery.min.js'}
+    %script{src: '/js/showdown.js'}
+    %link{href: "/css/rikiki.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
+    %link{href: "/css/bootstrap.min.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
+    
+  %body
+    %form{method: 'post'}
+      %p
+        %ul.menu
+          %li.btn
+            %a{href: '/'}
+              home
+          %li.btn
+            %a#bt_edit{href: '#'}
+              edit
+        %hr
+        #markdown
+          %a#bt_preview.btn{href: '#'}
+            preview
+          %input#save.btn{type: 'submit', value: 'save'}
+          %p
+            %textarea#content{name: 'content'}<= @content
+          %a#bt_show_edit.btn{href: '#'}
+            show_edit
+    #html_out
+    %script{src: '/js/app.js'}
+
