@@ -13,6 +13,7 @@
 
   $('#bt_preview').click(function() {
     var pos;
+    $('#html_out').show();
     render_md();
     pos = $('#html_out').offset();
     return $('body').animate({
@@ -21,9 +22,10 @@
   });
 
   $('#bt_show_edit').click(function() {
-    return $('body').animate({
+    $('body').animate({
       scrollTop: 0
     });
+    return $('#html_out').hide();
   });
 
   render_md();

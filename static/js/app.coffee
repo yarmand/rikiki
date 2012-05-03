@@ -6,11 +6,13 @@ window.render_md = () ->
 $('#bt_edit').click () ->
   $('#markdown').toggle()
 $('#bt_preview').click () ->
+  $('#html_out').show()
   render_md()
   pos = $('#html_out').offset()
   $('body').animate({ scrollTop: pos.top })
 $('#bt_show_edit').click () ->
   $('body').animate({ scrollTop: 0 })
+  $('#html_out').hide()
 
 
 
