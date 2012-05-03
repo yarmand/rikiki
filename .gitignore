@@ -4,4 +4,6 @@
 .sass*
 __sinatra__
 .rvmrc
-
+pages
+__Tag_List__
+tags
