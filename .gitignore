@@ -3,4 +3,5 @@
 .DS_Store
 .sass*
 __sinatra__
+.rvmrc
 
