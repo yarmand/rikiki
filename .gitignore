@@ -7,6 +7,7 @@ __sinatra__
 pages
 __Tag_List__
 tags
+tmp
 
 # bundler
 .bundle
