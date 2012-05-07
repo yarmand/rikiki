@@ -9,24 +9,34 @@
     %form{method: 'post'}
       %p
         %ul.menu
+          %strong
+            path: 
           %li.btn
             %a{href: '/'}
               home
+          %strong
+            = "/"
           - from_home = ""
           - Array(@segments[0,@segments.size-1]).each do |segment|  
             - from_home += segment + "/"
             %li.btn
               %a{href: "/wiki/#{from_home}"}
                 = segment
-          %li.btn
-            - segment = @segments.pop
-            %a{href: "/wiki/#{from_home + segment}"}
-              = segment
-          %li.btn
+            %strong
+              = "/"
+          - segment = @segments.pop
+          - if segment
+            - if @filename =~ /index\.md/
+              %li.btn
+                %a{href: "/wiki/#{from_home + segment}"}
+                  = segment
+            - else
+              %strong
+                = segment
+          %li.btn.pull-right
             %a#bt_edit{href: '#'}
               edit
-        = @filename
-        %hr
+        //= @filename
         #markdown
           %a#bt_preview.btn{href: '#'}
             preview

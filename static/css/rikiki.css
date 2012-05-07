@@ -5,6 +5,9 @@ body {
 div {
   background-color: white; }
 
+.menu .pull-right {
+  margin-right: 5em; }
+
 #markdown {
   display: none;
   padding: 2em; }
