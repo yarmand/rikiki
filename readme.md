@@ -11,6 +11,18 @@ I personally use it placed in my [DropBox](http://www.dropbox.com). So I can :
 - use and edit pages on my iPhone
 - get wiki sync on all my machines
 
+# Usage
+
+clone this repo
+
+	git clone git://github.com/yarmand/rikiki.git
+
+You can simply start ruby interpreter
+
+	ruby rikiki.rb
+
+But rikiki have a rack standard ``config.ru`` so you can easily install it with [Pow](http://pow.cx/), [Passenger](http://www.modrails.com/) or any rack deployment system.
+	
 
 # todo
 
