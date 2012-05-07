@@ -1,4 +1,6 @@
 # myapp.rb
+# If you're using bundler, you will need to add this
+require 'bundler/setup'
 require 'sinatra'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
@@ -13,7 +15,7 @@ get %r{/wiki(/.*)} do |path|
   @segments = @path.split('/').drop(1)
   if @filename =~ /index\.md/
     @segments.slice!(-1)
-    @segments[@segments.size - 1] += "/"
+    @segments[@segments.size - 1] += "/" if @segments.size > 1
   end
   haml :main
 end
@@ -36,4 +38,5 @@ def init_file(fullpath)
   Dir.mkdir(dname) unless Dir.exists?(dname)
   File.open(fullpath, "w") {} unless File.exists?(fullpath)
 end
+
 
