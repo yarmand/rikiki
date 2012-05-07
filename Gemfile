@@ -3,5 +3,10 @@ source 'http://rubygems.org'
 gem "sinatra"
 gem "haml"
 gem "sass"
-gem "shotgun"
 
+group :development do
+  gem "guard"
+  gem "guard-coffeescript"
+  gem "guard-pow"
+  gem "guard-sass"
+end

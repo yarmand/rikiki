@@ -7,3 +7,8 @@ __sinatra__
 pages
 __Tag_List__
 tags
+
+# bundler
+.bundle
+.bin
+Gemfile.lock
