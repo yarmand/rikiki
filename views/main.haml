@@ -2,8 +2,8 @@
   %head
     %script{src: '/js/jquery.min.js'}
     %script{src: '/js/showdown.js'}
-    %link{href: "/css/rikiki.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
     %link{href: "/css/bootstrap.min.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
+    %link{href: "/css/rikiki.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
     
   %body
     %form{method: 'post'}
@@ -12,9 +12,20 @@
           %li.btn
             %a{href: '/'}
               home
+          - from_home = ""
+          - Array(@segments[0,@segments.size-1]).each do |segment|  
+            - from_home += segment + "/"
+            %li.btn
+              %a{href: "/wiki/#{from_home}"}
+                = segment
+          %li.btn
+            - segment = @segments.pop
+            %a{href: "/wiki/#{from_home + segment}"}
+              = segment
           %li.btn
             %a#bt_edit{href: '#'}
               edit
+        = @filename
         %hr
         #markdown
           %a#bt_preview.btn{href: '#'}

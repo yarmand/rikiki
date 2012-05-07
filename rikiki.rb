@@ -8,16 +8,20 @@ get '/' do
 end
 
 get %r{/wiki(/.*)} do |path|
-  path,filename = filename_path(path)
-  @content = File.open(filename, 'rb') { |f| f.read }
-  @content2 = IO.read(filename)
+  @path,@filename = filename_path(path)
+  @content = File.open(@filename, 'rb') { |f| f.read }
+  @segments = @path.split('/').drop(1)
+  if @filename =~ /index\.md/
+    @segments.slice!(-1)
+    @segments[@segments.size - 1] += "/"
+  end
   haml :main
 end
 
 post %r{/wiki(/.*)} do |path|
-  path,filename = filename_path(path)
+  @path,filename = filename_path(path)
   File.open(filename, 'w') { |f| f.write(params[:content]) }
-  redirect "/wiki#{path}"
+  redirect "/wiki#{@path}"
 end
 
 def filename_path(path)
