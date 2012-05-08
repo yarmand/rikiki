@@ -11,12 +11,16 @@ end
 
 get %r{/wiki(/.*)} do |path|
   @path,@filename = filename_path(path)
-  @content = File.open(@filename, 'rb') { |f| f.read }
-  @segments = @path.split('/').drop(1)
-  if @filename =~ /index\.md/
-    @segments.slice!(-1)
-    @segments[@segments.size - 1] += "/" if @segments.size > 1
+  from_home=""
+  @path_segments = path.split('/').drop(1).collect do |e|
+    from_home += "/" + e
+    {basename: e, path: from_home}
   end
+  @page = @path_segments.slice!(-1)
+  if @filename =~ /index\.md/
+    @page[:is_a_dir] = true
+  end
+  @page[:content] = File.open(@filename, 'rb') { |f| f.read }
   haml :main
 end
 

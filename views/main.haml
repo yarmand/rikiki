@@ -8,7 +8,7 @@
   %body
     %form{method: 'post'}
       %p
-        %ul.menu
+        %ul#path
           %strong
             path: 
           %li.btn
@@ -16,35 +16,42 @@
               home
           %strong
             = "/"
-          - from_home = ""
-          - Array(@segments[0,@segments.size-1]).each do |segment|  
-            - from_home += segment + "/"
+          - Array(@path_segments).each do |segment|  
             %li.btn
-              %a{href: "/wiki/#{from_home}"}
-                = segment
+              %a{href: "/wiki#{segment[:path]}/"}
+                = segment[:basename]
             %strong
               = "/"
-          - segment = @segments.pop
-          - if segment
-            - if @filename =~ /index\.md/
-              %li.btn
-                %a{href: "/wiki/#{from_home + segment}"}
-                  = segment
-            - else
-              %strong
-                = segment
-          %li.btn.pull-right
-            %a#bt_edit{href: '#'}
-              edit
-        //= @filename
+          %strong
+            = @page[:basename]
+            = "/ index" if @page[:is_a_dir] and @page[:path] != '/index'
+        .btn.pull-right
+          %a#bt_edit{href: '#'}
+            edit
+        / 
+          ************* DEBUG Infos *************
+          filename :
+          = @filename
+          %br
+          path: 
+          = @path
+          %br
+          page
+          = @page.inspect
+          %br
+          path_segments:
+          = @path_segments.inspect
+          ***************************************
+
         #markdown
           %a#bt_preview.btn{href: '#'}
             preview
           %input#save.btn{type: 'submit', value: 'save'}
           %p
-            %textarea#content{name: 'content'}<= @content
+            %textarea#content{name: 'content'}<= @page[:content]
           %a#bt_show_edit.btn{href: '#'}
             show_edit
         #html_out
+
     %script{src: '/js/app.js'}
 
