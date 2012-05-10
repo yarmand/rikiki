@@ -3,7 +3,7 @@
   window.render_md = function() {
     var content, converter;
     converter = new Showdown.converter;
-    content = converter.makeHtml($('#content').val());
+    content = Markdown($('#content').val());
     return $('#html_out').html(content);
   };
 
