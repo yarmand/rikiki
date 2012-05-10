@@ -1,8 +1,7 @@
 (function() {
 
   window.render_md = function() {
-    var content, converter;
-    converter = new Showdown.converter;
+    var content;
     content = Markdown($('#content').val());
     return $('#html_out').html(content);
   };

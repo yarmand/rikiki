@@ -1,5 +1,5 @@
 window.render_md = () ->
-  converter = new Showdown.converter
+  # converter = new Showdown.converter
   # content = converter.makeHtml($('#content').val())
   content = Markdown($('#content').val())
   $('#html_out').html(content)
