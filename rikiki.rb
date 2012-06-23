@@ -2,8 +2,11 @@
 # If you're using bundler, you will need to add this
 require 'bundler/setup'
 require 'sinatra'
+require 'git'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
+PAGES_LOCATION='pages'
+
 
 get '/' do
   redirect '/wiki/index'
@@ -27,12 +30,13 @@ end
 post %r{/wiki(/.*)} do |path|
   @path,filename = filename_path(path)
   File.open(filename, 'w') { |f| f.write(params[:content]) }
+  git_commit(filename)
   redirect "/wiki#{@path}"
 end
 
 def filename_path(path)
   path += 'index' if path =~ /\/$/
-  filename = "pages#{path}.md"
+  filename = "#{PAGES_LOCATION}#{path}.md"
   init_file(filename)
   [path,filename]
 end
@@ -43,4 +47,16 @@ def init_file(fullpath)
   File.open(fullpath, "w") {} unless File.exists?(fullpath)
 end
 
+def git_commit(fullpath)
+  git_check_init
+  git = Git.open(File.expand_path(PAGES_LOCATION))
+  git.add(File.expand_path(fullpath))
+  git.commit(Time.now.to_s)
+end
+
+def git_check_init
+  unless Dir.exists?(File.expand_path(PAGES_LOCATION+'/.git'))
+    Git.init(File.expand_path(PAGES_LOCATION))
+  end
+end
 
