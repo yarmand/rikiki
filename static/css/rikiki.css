@@ -29,3 +29,6 @@ table tr:nth-child(odd) {
 
 #html_out {
   padding: 2em; }
+  #html_out #toc {
+    border: solid grey;
+    float: right; }

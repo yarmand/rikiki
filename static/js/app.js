@@ -3,7 +3,26 @@
   window.render_md = function() {
     var content;
     content = Markdown($('#content').val());
-    return $('#html_out').html(content);
+    $('#html_out').html(content);
+    return put_toc($('#html_out'));
+  };
+
+  window.put_toc = function(root) {
+    var i, titles, toc;
+    toc = $('<div id="toc">');
+    titles = $('<ul>');
+    toc.append(titles);
+    i = 1;
+    root.children('h1').each(function(i, e) {
+      var anchor, li, title;
+      anchor = $("<a name='" + i++ + "'>");
+      $(e).prepend(anchor);
+      title = $(e).text();
+      console.log(title);
+      li = $("<li><a href='#" + i + "'>" + title + '</a></li>');
+      return titles.append(li);
+    });
+    return root.prepend(toc);
   };
 
   $('#bt_edit').click(function() {
@@ -25,6 +44,18 @@
       scrollTop: 0
     });
     return $('#html_out').hide();
+  });
+
+  $('#save_continue').click(function() {
+    var data, url;
+    url = document.location.origin + document.location.pathname;
+    data = {
+      content: $('#markdown #content').val()
+    };
+    $('#notice').html(' ... ');
+    return $.post(url, data, function() {
+      return $('#notice').html('Saved !').fadeOut(500).html('').fadeIn();
+    });
   });
 
   render_md();

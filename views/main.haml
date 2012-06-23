@@ -1,5 +1,8 @@
 %html
   %head
+    %title
+      Rikiki -
+      = @page[:basename]
     %script{src: '/js/jquery.min.js'}
     // %script{src: '/js/showdown.js'}
     %script{src: '/js/js-markdown-extra.js'}
@@ -48,6 +51,9 @@
           %a#bt_preview.btn{href: '#'}
             preview
           %input#save.btn{type: 'submit', value: 'save'}
+          %a#save_continue.btn{href: '#'}
+            save-continue
+          %span#notice
           %p
             %textarea#content{name: 'content'}<= @page[:content]
           %a#bt_show_edit.btn{href: '#'}
