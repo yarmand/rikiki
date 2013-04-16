@@ -1,0 +1,31 @@
+%html
+  %head
+    %title
+      Rikiki - Search results
+    %script{src: '/js/jquery.min.js'}
+    // %script{src: '/js/showdown.js'}
+    %script{src: '/js/js-markdown-extra.js'}
+    %link{href: "/css/bootstrap.min.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
+    %link{href: "/css/rikiki.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
+    
+  %body
+    #search
+      %form{action: '/search', method: 'get'}
+        %label
+          Search
+        %input{name: 'search'}
+    #results
+      %h2
+        Search Results(#{@results.count})
+      %ul
+        - @results.each do |r|
+          %li
+            %a{href: "/wiki/#{r[:page]}"}
+              = r[:page]
+            %blockquote
+              %ul
+              - r[:hits].each do |h|
+                %li
+                  = h
+
+

@@ -1,15 +1,21 @@
 %html
   %head
     %title
-      Rikiki -
+      (23) Rikiki -
       = @page[:basename]
     %script{src: '/js/jquery.min.js'}
     // %script{src: '/js/showdown.js'}
     %script{src: '/js/js-markdown-extra.js'}
+    %script{src: '/js/highlight.pack.js'}
     %link{href: "/css/bootstrap.min.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
     %link{href: "/css/rikiki.css", media: "screen, projection", rel: "stylesheet", type: "text/css"}
-    
+    %link{href: "/favicon.png", sizes: "16x16", rel: "icon", type: "image/png"}
   %body
+    #search
+      %form{action: '/search', method: 'get'}
+        %label
+          Search
+        %input{name: 'search'}
     %form{method: 'post'}
       %p
         %ul#path
@@ -46,19 +52,23 @@
           path_segments:
           = @path_segments.inspect
           ***************************************
-
-        #markdown
-          %a#bt_preview.btn{href: '#'}
-            preview
-          %input#save.btn{type: 'submit', value: 'save'}
-          %a#save_continue.btn{href: '#'}
-            save-continue
-          %span#notice
-          %p
-            %textarea#content{name: 'content'}<= @page[:content]
-          %a#bt_show_edit.btn{href: '#'}
-            show_edit
-        #html_out
+      #markdown
+        %a#bt_preview.btn{href: '#'}
+          preview
+        %input#save.btn{type: 'submit', value: 'save'}
+        %a#save_continue.btn{href: '#'}
+          save-continue
+        %span#notice
+        %p
+          %textarea#content{name: 'content'}<= @page[:content]
+        %a#bt_show_edit.btn{href: '#'}
+          show_edit
+    #html_out
+      //= markdown(@page[:content])
+    %hr
+    #history
+      - @history.each do |h|
+        = h.message if h.commit?
 
     %script{src: '/js/app.js'}
 

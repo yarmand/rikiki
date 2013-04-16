@@ -4,6 +4,9 @@
     var content;
     content = Markdown($('#content').val());
     $('#html_out').html(content);
+    $('code').each(function(i, e) {
+      return hljs.highlightBlock(e);
+    });
     return put_toc($('#html_out'));
   };
 
@@ -57,6 +60,8 @@
       return $('#notice').html('Saved !').fadeOut(500).html('').fadeIn();
     });
   });
+
+  hljs.tabReplace = '    ';
 
   render_md();
 

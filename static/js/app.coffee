@@ -3,6 +3,8 @@ window.render_md = () ->
   # content = converter.makeHtml($('#content').val())
   content = Markdown($('#content').val())
   $('#html_out').html(content)
+  $('code').each (i, e) ->
+    hljs.highlightBlock(e)
   put_toc($('#html_out'))
 
 window.put_toc = (root) ->
@@ -38,6 +40,7 @@ $('#save_continue').click () ->
   $.post url, data, () ->
       $('#notice').html('Saved !').fadeOut(500).html('').fadeIn()
 
+hljs.tabReplace = '    '
 render_md()
 
 
