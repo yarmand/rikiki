@@ -1,3 +1,5 @@
+# encoding: utf-8
+#
 # If you're using bundler, you will need to add this
 require 'bundler/setup'
 
@@ -32,7 +34,11 @@ end
 get '/search' do
   @results = []
   (Dir.glob("#{File.expand_path(PAGES_LOCATION)}/**/*").select { |s| s =~ /.md$/ }).each do |file|
-    hits = File.open(file).grep(/#{params[:search]}/i)
+    begin
+      hits = File.open(file, 'r:utf-8').grep(/#{params[:search]}/i)
+    rescue Exception => e
+      raise "Error with file #{file}: #{e.message}"
+    end
     unless hits.empty?
       page = file.gsub(/\.md$/,'').gsub(/#{File.expand_path(PAGES_LOCATION)}\//,'')
       @results += [{ page: page, hits: hits }] 
